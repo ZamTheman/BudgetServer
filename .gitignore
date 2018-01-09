@@ -1,0 +1,9 @@
+FBS.DataAccess/obj/
+FBS.DataAccess/bin/
+FBS.Controllers/obj/
+.vs/
+FBS.BusinessLogic/bin/
+FBS.BusinessLogic/obj/
+FBS.Controllers/bin/Debug/netcoreapp2.0/FBS.Controllers.deps.json
+FBS.Controllers/bin/Debug/netcoreapp2.0/FBS.Controllers.runtimeconfig.dev.json
+FBS.Controllers/bin/Debug/netcoreapp2.0/FBS.Controllers.runtimeconfig.json
