@@ -18,16 +18,14 @@ namespace FBS.Controllers.Controllers
 
         // GET: api/Expenses
         [HttpGet]
-        public IEnumerable<Expense> Get()
+        public IEnumerable<Expense> Get(
+            [FromQuery(Name = "startDate")] DateTime startDate,
+            [FromQuery(Name = "expenseType")] int expenseType)
         {
-            return expensesRepository.GetExpensesForMonth(DateTime.Now);
-        }
+            // If no relevent month is set, use current month
+            var date = startDate.Year > 2000 ? startDate : DateTime.Now;
 
-        // GET: api/Expenses/2017-12-01
-        [HttpGet("{date}", Name = "GetExpensesByDate")]
-        public IEnumerable<Expense> Get(DateTime date)
-        {
-            return expensesRepository.GetExpensesForMonth(date);
+            return expensesRepository.GetExpensesForMonth(date, expenseType);
         }
         
         // POST: api/Expenses

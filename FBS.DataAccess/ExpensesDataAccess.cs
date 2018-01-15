@@ -15,13 +15,21 @@ namespace FBS.DataAccess
         {
         }
 
-        public List<ExpenseDTO> GetExpensesForMonth(DateTime date)
+        public List<ExpenseDTO> GetExpensesForMonth(DateTime date, int expenseType = 0)
         {
+            string searchQuery = "SELECT * FROM utgifter WHERE YEAR(Datum) = @Y AND MONTH(Datum) = @M";
+            if(expenseType > 0)
+            {
+                searchQuery += " AND UtgiftId = @UtgId";
+            }
+
             var list = new List<ExpenseDTO>();
             using(IDbConnection db = new MySqlConnection(connectionString))
             {
                 list = db.Query<ExpenseDTO>
-                    ("SELECT * FROM utgifter WHERE YEAR(Datum) = @Y AND MONTH(Datum) = @M", new { Y = date.Year, M = date.Month }).ToList();
+                    (searchQuery, new {
+                        Y = date.Year, M = date.Month, UtgId = expenseType
+                    }).ToList();
             }
             return list;
         }

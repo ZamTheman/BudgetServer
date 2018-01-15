@@ -9,7 +9,7 @@ namespace FBS.BusinessLogic
         int AddNewExpense(Expense expense);
         int AddNewExpenses(List<Expense> expenses);
         int DeleteExpense(int id);
-        IEnumerable<Expense> GetExpensesForMonth(DateTime date);
+        IEnumerable<Expense> GetExpensesForMonth(DateTime date, int expenseType);
         int UpdateExpense(Expense expense);
     }
 }
