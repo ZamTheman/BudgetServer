@@ -15,25 +15,28 @@ namespace FBS.DataAccess
         {
         }
 
-        public List<ExpenseDTO> GetExpensesForMonth(DateTime date, int expenseType = 0)
+        public IEnumerable<ExpenseDTO> GetExpenses(DateTime startDate, DateTime endDate, int expenseType = 0)
         {
-            string searchQuery = "SELECT * FROM utgifter WHERE YEAR(Datum) = @Y AND MONTH(Datum) = @M";
-            if(expenseType > 0)
+            string searchQuery = "SELECT * FROM utgifter WHERE Datum BETWEEN @startDate AND @endDate";
+            if (expenseType > 0)
             {
                 searchQuery += " AND UtgiftId = @UtgId";
             }
 
             var list = new List<ExpenseDTO>();
-            using(IDbConnection db = new MySqlConnection(connectionString))
+            using (IDbConnection db = new MySqlConnection(connectionString))
             {
                 list = db.Query<ExpenseDTO>
-                    (searchQuery, new {
-                        Y = date.Year, M = date.Month, UtgId = expenseType
+                    (searchQuery, new
+                    {
+                        startDate,
+                        endDate,
+                        UtgId = expenseType
                     }).ToList();
             }
             return list;
         }
-
+        
         public int AddNewExpense(ExpenseDTO expense)
         {
             int result;

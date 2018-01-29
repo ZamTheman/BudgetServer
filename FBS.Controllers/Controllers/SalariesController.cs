@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FBS.BusinessLogic;
 using FBS.BusinessLogic.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,12 @@ namespace FBS.Controllers.Controllers
         }
 
         // GET: api/Salaries
-        [HttpGet("{date}", Name = "GetSalariesByDate")]
-        public Salary Get(DateTime date)
+        [HttpGet]
+        public IEnumerable<Salary> Get(
+            [FromQuery(Name = "startDate")] DateTime startDate,
+            [FromQuery(Name = "endDate")] DateTime endDate)
         {
-            return salariesRepository.GetSalaryForMonth(date);
+            return salariesRepository.GetSalaries(startDate, endDate);
         }
         
         // POST: api/Salaries

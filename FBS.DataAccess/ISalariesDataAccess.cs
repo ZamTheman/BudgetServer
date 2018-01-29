@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FBS.DataAccess.Models;
 
 namespace FBS.DataAccess
@@ -6,7 +7,7 @@ namespace FBS.DataAccess
     public interface ISalariesDataAccess
     {
         int AddNewSalary(SalaryDTO salary);
-        SalaryDTO GetSalaryForMonth(DateTime date);
+        IEnumerable<SalaryDTO> GetSalaries(DateTime startDate, DateTime endDate);
         int UpdateSalary(SalaryDTO salary);
     }
 }

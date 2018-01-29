@@ -9,7 +9,7 @@ namespace FBS.DataAccess
         int AddNewExpense(ExpenseDTO expense);
         int AddNewExpenses(List<ExpenseDTO> expenses);
         int DeleteExpense(int id);
-        List<ExpenseDTO> GetExpensesForMonth(DateTime date, int expenseType = 0);
+        IEnumerable<ExpenseDTO> GetExpenses(DateTime startDate, DateTime endDate, int expenseType = 0);
         int UpdateExpense(ExpenseDTO expense);
     }
 }

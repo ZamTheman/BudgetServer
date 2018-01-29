@@ -1,6 +1,7 @@
 ﻿using FBS.BusinessLogic.Helpers;
 using FBS.BusinessLogic.Models;
 using FBS.DataAccess;
+using System.Collections.Generic;
 using System;
 
 namespace FBS.BusinessLogic
@@ -14,11 +15,15 @@ namespace FBS.BusinessLogic
             this.salariesDataAccess = salariesDataAcces;
         }
 
-        public Salary GetSalaryForMonth(DateTime date)
+        public IEnumerable<Salary> GetSalaries(DateTime startDate, DateTime endDate)
         {
-            var salaryDTO = salariesDataAccess.GetSalaryForMonth(date);
-            var salary = salaryDTO != null ? Converters.MapSalaryDTOToSalary(salaryDTO) : null;
-            return salary;
+            var salaryDTO = salariesDataAccess.GetSalaries(startDate, endDate);
+            var salaries = new List<Salary>();
+            foreach (var item in salaryDTO)
+            {
+                salaries.Add(Converters.MapSalaryDTOToSalary(item));
+            }
+            return salaries;
         }
 
         public int AddNewSalary(Salary salary)

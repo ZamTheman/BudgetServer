@@ -3,6 +3,7 @@ using FBS.DataAccess.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -14,13 +15,14 @@ namespace FBS.DataAccess
         {
         }
 
-        public SalaryDTO GetSalaryForMonth(DateTime date)
+        public IEnumerable<SalaryDTO> GetSalaries(DateTime startDate, DateTime endDate)
         {
-            using(IDbConnection db = new MySqlConnection(connectionString))
+            var selectQuery = "SELECT * FROM inkomster WHERE Datum BETWEEN @startDate AND @endDate";
+            using (IDbConnection db = new MySqlConnection(connectionString))
             {
                 return db.Query<SalaryDTO>
-                    ("SELECT * FROM inkomster WHERE YEAR(Datum) = @Y AND MONTH(Datum) = @M ORDER BY id DESC LIMIT 1",
-                    new { Y = date.Year, M = date.Month }).FirstOrDefault();
+                    (selectQuery,
+                    new { startDate, endDate }).ToList();
             }
         }
 

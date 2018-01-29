@@ -16,9 +16,14 @@ namespace FBS.BusinessLogic
             this.expensesDataAccess = expensesDataAccess;
         }
 
-        public IEnumerable<Expense> GetExpensesForMonth(DateTime date, int expenseType)
+        public IEnumerable<Expense> GetExpenses(DateTime startDate, DateTime endDate, int expenseType = 0)
         {
-            var expenseDtos = expensesDataAccess.GetExpensesForMonth(date, expenseType);
+            IEnumerable<ExpenseDTO> expenseDtos;
+            if (expenseType > 0)
+                expenseDtos = expensesDataAccess.GetExpenses(startDate, endDate, expenseType);
+            else
+                expenseDtos = expensesDataAccess.GetExpenses(startDate, endDate);
+
             var expenses = new List<Expense>();
             foreach (var item in expenseDtos)
             {
