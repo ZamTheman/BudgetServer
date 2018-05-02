@@ -40,6 +40,7 @@ namespace FBS.Controllers
             {
                 config.Scan(_ =>
                 {
+                    _.Assembly("FBS.Controllers");
                     _.Assembly("FBS.BusinessLogic");
                     _.Assembly("FBS.DataAccess");
                     _.WithDefaultConventions();
@@ -59,10 +60,10 @@ namespace FBS.Controllers
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
+            //app.UseForwardedHeaders(new ForwardedHeadersOptions
+            //{
+            //    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            //});
 
             app.UseCors("AllowAll");
 

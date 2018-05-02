@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FBS.BusinessLogic;
 using FBS.BusinessLogic.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace FBS.Controllers.Controllers
 {
@@ -10,10 +11,13 @@ namespace FBS.Controllers.Controllers
     [Route("api/Salaries")]
     public class SalariesController : Controller
     {
-        private ISalariesRepository salariesRepository;
-        public SalariesController(ISalariesRepository salariesRepository)
+        private readonly ISalariesRepository salariesRepository;
+        private readonly ILogger<SalariesController> logger;
+
+        public SalariesController(ISalariesRepository salariesRepository, ILogger<SalariesController> logger)
         {
             this.salariesRepository = salariesRepository;
+            this.logger = logger;
         }
 
         // GET: api/Salaries
@@ -22,6 +26,7 @@ namespace FBS.Controllers.Controllers
             [FromQuery(Name = "startDate")] DateTime startDate,
             [FromQuery(Name = "endDate")] DateTime endDate)
         {
+            logger.LogInformation("Salaries get request received. Parameters: startDate: " + startDate + " endDate: " + endDate);
             return salariesRepository.GetSalaries(startDate, endDate);
         }
         

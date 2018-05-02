@@ -8,8 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.4" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.1" />
-    <PackageReference Include="MySql.Data" Version="8.0.9-dmr" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.2" />
+    <PackageReference Include="MySql.Data" Version="8.0.10-rc" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.5.0" />
   </ItemGroup>
 
 </Project>

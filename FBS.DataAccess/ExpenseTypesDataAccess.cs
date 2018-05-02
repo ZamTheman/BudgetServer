@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using FBS.DataAccess.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +10,7 @@ namespace FBS.DataAccess
 {
     public class ExpenseTypesDataAccess : DataAccessBase, IExpenseTypesDataAccess
     {
-        public ExpenseTypesDataAccess(IConfiguration configuration) : base(configuration)
+        public ExpenseTypesDataAccess(IConfiguration configuration, ILogger<ExpenseTypesDataAccess> logger) : base(configuration, logger)
         {
         }
 

@@ -6,12 +6,13 @@ using System.Data;
 using System.Linq;
 using FBS.DataAccess.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace FBS.DataAccess
 {
     public class ExpensesDataAccess : DataAccessBase, IExpensesDataAccess
     {
-        public ExpensesDataAccess(IConfiguration configuration) : base(configuration)
+        public ExpensesDataAccess(IConfiguration configuration, ILogger<ExpensesDataAccess> logger) : base(configuration, logger)
         {
         }
 
