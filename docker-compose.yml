@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  fbs.controllers:
+    image: ${DOCKER_REGISTRY}fbscontrollers
+    build:
+      context: .
+      dockerfile: FBS.Controllers/Dockerfile
