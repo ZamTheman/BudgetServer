@@ -1,19 +1,23 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+FROM microsoft/dotnet:sdk AS build-env
 WORKDIR /app
-EXPOSE 80
 
-FROM microsoft/dotnet:2.1-sdk AS build
-WORKDIR /src
-COPY . .
-RUN dotnet restore FBS.Controllers/FBS.Controllers.csproj
-COPY . .
-WORKDIR /src/FBS.Controllers
-RUN dotnet build FBS.Controllers.csproj -c Release -o /app
+RUN mkdir /output
 
-FROM build AS publish
-RUN dotnet publish FBS.Controllers.csproj -c Release -o /app
+# Copy project and publish
 
-FROM base AS final
+COPY . /app
+
+WORKDIR /app/FBS.Controllers
+RUN dotnet publish --configuration Debug --output /output
+
+# Build runtime image
+FROM microsoft/dotnet:aspnetcore-runtime
+
+ENV ASPNETCORE_URLS http://*:5001
+
 WORKDIR /app
-COPY --from=publish /app .
+
+COPY --from=build-env /output .
+EXPOSE 5001
+
 ENTRYPOINT ["dotnet", "FBS.Controllers.dll"]
