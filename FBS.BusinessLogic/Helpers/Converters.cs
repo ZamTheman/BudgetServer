@@ -74,7 +74,5 @@ namespace FBS.BusinessLogic.Helpers
                 name = expenseType.Typ
             };
         }
-
-
     }
 }
