@@ -9,3 +9,4 @@ FBS.Controllers/bin/Debug/netcoreapp2.0/FBS.Controllers.runtimeconfig.dev.json
 FBS.Controllers/bin/Debug/netcoreapp2.0/FBS.Controllers.runtimeconfig.json
 FBS.Controllers/bin/
 /obj/
+bin/

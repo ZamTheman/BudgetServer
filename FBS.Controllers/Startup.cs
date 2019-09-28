@@ -20,7 +20,7 @@ namespace FBS.Controllers
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddOptions();
             services.Configure<ConnectionSettings>(Configuration.GetSection("ConnectionSettings"));
             services.AddCors(options =>
@@ -29,8 +29,7 @@ namespace FBS.Controllers
                     builder => builder
                         .AllowAnyOrigin()
                         .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials());
+                        .AllowAnyHeader());
             });
 
             services.AddSingleton(Configuration);
