@@ -1,4 +1,3 @@
-CMD echo Starting
 FROM mcr.microsoft.com/dotnet/core/sdk AS build-env
 WORKDIR /app
 
